@@ -20,7 +20,7 @@ Further development will expand the AI integration, live preview, and modular sc
 1. **Clone Repository**
 
    ```bash
-   git clone https://github.com/your-org/kapsules.git
+   git clone https://github.com/eyes-pick/kapsules.git
    cd kapsules
    ```
 
