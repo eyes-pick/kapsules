@@ -1,0 +1,46 @@
+# Task List for kapsules
+
+## Phase 1: Foundation & Tooling
+- [x] Next.js app initialization (v0.1.0)
+- [ ] Integrate Tailwind CSS
+- [ ] Configure `tailwind.config.ts` & base styles
+- [ ] Enable ESLint + Prettier with TS support
+- [ ] Install shadcn/ui & Radix primitives
+- [ ] Create a ThemeProvider wrapper
+
+## Phase 2: Prompt-Driven CLI/UI
+- [ ] Build `<PromptInput>` React component
+- [ ] Wire up model selector dropdown
+- [ ] Implement ask/chat/edit toggle component
+- [ ] Expose mode state to prompt processor
+
+## Phase 3: Core AI & Code-Gen Engine
+- [ ] Define frontend service to send prompts to LLM
+- [ ] Map intents to generation modules
+- [ ] UI scaffold generator (React + shadcn/ui)
+- [ ] API/data model generator (TypeScript interfaces + endpoints)
+- [ ] File-system & ZIP packaging service
+
+## Phase 4: Live-Preview Sandbox
+- [ ] Create `<SandboxFrame>` wrapping an iframe
+- [ ] Implement hot-reload on file updates
+- [ ] Evaluate sandboxing strategy (postMessage, CSP)
+- [ ] Integrate resource limits
+
+## Phase 5: Quality, CI/CD & Testing
+- [ ] GitHub Actions: lint, typecheck, build, test
+- [ ] Dockerfile for consistent dev container
+- [ ] Unit tests for prompt processor
+- [ ] Snapshot tests for generated UI
+
+## Phase 6: Documentation & Templates
+- [ ] Flesh out `docs/getting-started.md`
+- [ ] Detail `docs/architecture.md` & `docs/roadmap.md`
+- [ ] Define folder structure for reusable app templates
+- [ ] Provide one example template
+
+## Phase 7: Deployment & Release
+- [ ] Vercel/Netlify integration
+- [ ] CLI flag for “deploy” command
+- [ ] Automate changelog generation on release
+- [ ] Tag releases with GitHub Actions
