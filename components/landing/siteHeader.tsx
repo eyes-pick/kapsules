@@ -10,7 +10,8 @@ import {
 import { useAuth } from '@/contexts/AuthContext';
 import { UserDropdown } from '@/components/auth/UserDropdown';
 import { Button } from '@/components/ui/button';
-import { LogIn, UserPlus } from 'lucide-react';
+import { LogIn, UserPlus, MessageSquare } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SiteHeader() {
   const { user, openAuthModal, setAuthMode } = useAuth();
@@ -36,6 +37,9 @@ export default function SiteHeader() {
                 ◱
               </MenubarTrigger>
               <MenubarContent>
+                <MenubarItem>
+                  <Link href="/ai-chat">AI Chat</Link>
+                </MenubarItem>
                 <MenubarItem>
                   <a href="/portfolio">Portfolio</a>
                 </MenubarItem>
@@ -74,6 +78,10 @@ export default function SiteHeader() {
         {/* Right: Navigation */}
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6">
+            <Link href="/ai-chat" className="text-zinc-300 hover:text-green-400 transition-colors flex items-center gap-2">
+              <MessageSquare className="w-4 h-4" />
+              AI Chat
+            </Link>
             <a href="/portfolio" className="text-zinc-300 hover:text-green-400 transition-colors">
               Portfolio
             </a>

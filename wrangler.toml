@@ -1,0 +1,19 @@
+# Cloudflare Workers configuration
+name = "<projectName>-worker"
+compatibility_date = "2025-06-15"
+
+# Default (development) environment
+workers_dev = true
+
+# Account ID (replace with your Cloudflare account ID)
+account_id = "<CLOUDFLARE_ACCOUNT_ID>"
+
+# Development environment config
+[env.dev]
+name = "<projectName>-dev"
+route = "<projectName>.genr8.dev/*"
+
+# Production environment config
+[env.production]
+name = "<projectName>"
+route = "genr8.dev/*"

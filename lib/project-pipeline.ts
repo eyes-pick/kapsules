@@ -202,8 +202,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <App />
   </React.StrictMode>,
 )`,
-          'src/index.css': `@tailwind base;
-@tailwind components;
+          'src/index.css': `@import "tailwindcss/preflight";
 @tailwind utilities;`,
           'index.html': `<!DOCTYPE html>
 <html lang="en">
