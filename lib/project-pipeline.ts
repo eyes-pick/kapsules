@@ -223,10 +223,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   }
   private async buildDockerContainer(
     projectId: string,
-    _sourceFiles: Record<string, string>
+    sourceFiles: Record<string, string>
   ): Promise<{ containerId: string }> {
     // TODO: Integrate with Docker API to build container
     // This would create a Docker image with the generated Vite app
+    const fileCount = Object.keys(sourceFiles).length;
+    console.log(
+      `Building Docker container for project ${projectId} with ${fileCount} source files`
+    );
 
     // Simulated Docker build for now
     return new Promise(resolve => {
