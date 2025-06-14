@@ -35,6 +35,10 @@ A modular, phase-driven breakdown of upcoming work. Check off completed items as
 2. **Mode switch**
    - [ ] Implement ask/chat/edit toggle component
    - [ ] Expose mode state to prompt processor
+3. **Page Routing & Modularization**
+   - [x] Create Portfolio, Projects, and Settings pages
+   - [x] Modularize each page with Content and Shell components
+   - [x] Use ReactNode for Shell composition in each page
 
 ---
 

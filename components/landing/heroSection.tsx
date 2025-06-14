@@ -63,7 +63,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="min-h-[calc(60vh-4rem)] bg-gradient-to-br from-green-400/20 via-zinc-950 to-zinc-950 flex items-center justify-center px-4 py-16">
+    <section className="min-h-screen bg-gradient-to-br from-green-400/20 via-zinc-950 to-zinc-950 flex items-center justify-center px-4 py-16">
       <div className="max-w-2xl mx-auto text-center space-y-8">
         <div className="space-y-4">
           <div className="flex items-center justify-center gap-2 mb-4">

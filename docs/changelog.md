@@ -4,6 +4,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.1] – 2025-06-14
+
+### Added
+
+- Portfolio, Projects, and Settings pages with modular component structure
+- Created `PortfolioContent`, `ProjectsContent`, `SettingsContent` and corresponding Shell components
+- Each page now imports its Shell and Content as ReactNode for future extensibility
+
+### Changed
+
+- Updated landing page container to use `min-h-screen` for full viewport height
+
+### Fixed
+
+- None for this patch
+
 ## [0.3.0] – 2025-06-14
 
 ### Added
