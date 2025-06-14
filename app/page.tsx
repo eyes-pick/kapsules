@@ -1,8 +1,6 @@
-'use client'
-import LandingLayout from "@/components/landing/layout";
+'use client';
+import LandingLayout from '@/components/landing/layout';
 
 export default function Home() {
-  return (
-    <LandingLayout />
-  );
+  return <LandingLayout />;
 }

@@ -1,8 +1,8 @@
-'use client'
-import { ReactNode } from "react";
-import SiteHeader from "./siteHeader";
-import HeroSection from "./heroSection";
-import ProjectSection from "./projectSection";
+'use client';
+import { ReactNode } from 'react';
+import SiteHeader from './siteHeader';
+import HeroSection from './heroSection';
+import ProjectSection from './projectSection';
 // import FooterSection from "./footerSection";
 /**
  * LandingLayout Component
@@ -20,24 +20,24 @@ import ProjectSection from "./projectSection";
 
 // This is the main layout for the landing page
 export default function LandingLayout({
-    siteHeader = <SiteHeader />,
-    heroSection = <HeroSection />,
-    projectSection = <ProjectSection />,
-    // footerSection = <FooterSection />
+  siteHeader = <SiteHeader />,
+  heroSection = <HeroSection />,
+  projectSection = <ProjectSection />,
+  // footerSection = <FooterSection />
 }: {
-    siteHeader?: ReactNode;
-    heroSection?: ReactNode;
-    projectSection?: ReactNode;
-    // footerSection?: ReactNode;
+  siteHeader?: ReactNode;
+  heroSection?: ReactNode;
+  projectSection?: ReactNode;
+  // footerSection?: ReactNode;
 }) {
-    return (
-        <div className="min-h-screen w-full bg-zinc-950 text-white overflow-y-scroll overflow-x-hidden">
-            {siteHeader}
-            <main className="flex-1">
-                {heroSection}
-                {projectSection}
-                {/* footerSection */}
-            </main>
-        </div>
-    );
-};
+  return (
+    <div className="min-h-screen w-full bg-zinc-950 text-white overflow-y-scroll overflow-x-hidden">
+      {siteHeader}
+      <main className="flex-1">
+        {heroSection}
+        {projectSection}
+        {/* footerSection */}
+      </main>
+    </div>
+  );
+}
