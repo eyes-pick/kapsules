@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
     return (
-        <section className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-green-400/20 via-zinc-950 to-zinc-950 flex items-center justify-center px-4 py-16">
+        <section className="min-h-[calc(60vh-4rem)] bg-gradient-to-br from-green-400/20 via-zinc-950 to-zinc-950 flex items-center justify-center px-4 py-16">
             <div className="max-w-2xl mx-auto text-center space-y-8">
                 <div className="space-y-4">
                     <h1 className="mb-2 text-4xl md:text-9xl font-bold bg-gradient-to-b from-green-400/90 to-green-600/10 bg-clip-text text-transparent leading-40">Kapsules</h1>
@@ -16,7 +16,7 @@ export default function HeroSection() {
                     </p>
                 </div>
 
-                <Card className="bg-zinc-900/50 border-zinc-800 backdrop-blur-sm max-w-2xl mx-auto">
+                <Card className="bg-zinc-900/50 border-zinc-800 backdrop-blur-sm max-w-2xl mx-auto mb-33">
 
                     <CardContent className="space-y-4">
                         <div className="flex gap-2">
