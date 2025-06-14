@@ -24,21 +24,21 @@ export default function HeroSection() {
                                 placeholder="Build me an app that..."
                                 className="flex-1 bg-zinc-800 border-zinc-700 text-zinc-200 h-[70px] placeholder:text-zinc-500"
                             />
-                            <Button className="bg-green-600 hover:bg-green-700 text-white px-6 h-[70px]">
+                            <Button className="bg-zinc-800 hover:bg-green-700 text-slate-200/30 hover:text-green-100/90 px-6 h-[70px]">
                                 Generate
                             </Button>
                         </div>
                         <div className="flex items-center justify-center text-zinc-500 text-sm gap-4">
-                            <Button className="w-[1fr] bg-green-500 hover:bg-green-600 text-white font-medium">
+                            <Button className="w-[1fr] bg-zinc-800 hover:bg-green-600/80 text-slate-200/30 hover:text-green-100/90 font-medium">
                                 Connect Github
                             </Button>
-                            <Button className="w-[1fr] bg-green-500 hover:bg-green-600 text-white font-medium">
+                            <Button className="w-[1fr] bg-zinc-800 hover:bg-green-700/70 text-slate-200/30 hover:text-green-100/90 font-medium">
                                 Upload Images
                             </Button>
-                            <Button className="w-[1fr] bg-green-500 hover:bg-green-600 text-white font-medium">
+                            <Button className="w-[1fr] bg-zinc-800 hover:bg-green-700/70 text-slate-200/30 hover:text-green-100/90 font-medium">
                                 Upload Files
                             </Button>
-                            <Button className="w-[1fr] bg-green-500 hover:bg-green-600 text-white font-medium">
+                            <Button className="w-[1fr] bg-zinc-800 hover:bg-green-600/80 text-slate-200/30 hover:text-green-100/90 font-medium">
                                 Edit Setup Script
                             </Button>
                         </div>
