@@ -73,7 +73,9 @@ export default function ProjectSection() {
             {!user ? (
               <div className="text-center py-12">
                 <h3 className="text-xl font-semibold mb-4">Sign in to view your projects</h3>
-                <p className="text-zinc-400 mb-6">Create an account to start building AI-powered applications</p>
+                <p className="text-zinc-400 mb-6">
+                  Create an account to start building AI-powered applications
+                </p>
                 <Button onClick={handleLoginPrompt} className="bg-green-600 hover:bg-green-700">
                   Sign In
                 </Button>
@@ -86,12 +88,17 @@ export default function ProjectSection() {
             ) : projects.length === 0 ? (
               <div className="text-center py-12">
                 <h3 className="text-xl font-semibold mb-4">No projects yet</h3>
-                <p className="text-zinc-400 mb-6">Start by creating your first AI-powered application above</p>
+                <p className="text-zinc-400 mb-6">
+                  Start by creating your first AI-powered application above
+                </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {projects.map((project) => (
-                  <div key={project.id} className="bg-zinc-800/50 rounded-lg p-6 hover:bg-zinc-800/70 transition-colors">
+                {projects.map(project => (
+                  <div
+                    key={project.id}
+                    className="bg-zinc-800/50 rounded-lg p-6 hover:bg-zinc-800/70 transition-colors"
+                  >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-2">
                         {getStatusIcon(project.build_status)}
@@ -112,7 +119,7 @@ export default function ProjectSection() {
                     <div className="mb-4">
                       <Image
                         alt={`${project.title} preview`}
-                        src={project.preview_url || "/images/placeholder.png"}
+                        src={project.preview_url || '/images/placeholder.png'}
                         width={300}
                         height={200}
                         className="w-full rounded-lg bg-blend-overlay hover:opacity-80 opacity-90 ease-out transition-opacity duration-300 shadow-lg shadow-zinc-800/50"
@@ -127,7 +134,7 @@ export default function ProjectSection() {
                       )}
 
                       <div className="flex flex-wrap gap-1">
-                        {project.technologies.slice(0, 3).map((tech) => (
+                        {project.technologies.slice(0, 3).map(tech => (
                           <Badge key={tech} variant="outline" className="text-xs">
                             {tech}
                           </Badge>

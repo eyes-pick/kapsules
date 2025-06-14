@@ -71,7 +71,10 @@ export default function HeroSection() {
               Kapsules
             </h1>
             {user && (
-              <Badge variant="secondary" className="bg-green-600/20 text-green-400 border-green-600/30">
+              <Badge
+                variant="secondary"
+                className="bg-green-600/20 text-green-400 border-green-600/30"
+              >
                 <Sparkles className="w-3 h-3 mr-1" />
                 Pro
               </Badge>
@@ -91,10 +94,10 @@ export default function HeroSection() {
           <CardContent className="space-y-4">
             <div className="flex gap-2">
               <Input
-                placeholder={user ? "Build me an app that..." : "Sign in to start building..."}
+                placeholder={user ? 'Build me an app that...' : 'Sign in to start building...'}
                 className="flex-1 bg-zinc-800 border-zinc-700 text-zinc-200 h-[70px] placeholder:text-zinc-500"
                 value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
+                onChange={e => setPrompt(e.target.value)}
                 disabled={!user || isGenerating}
               />
               <Button

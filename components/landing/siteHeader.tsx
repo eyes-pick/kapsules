@@ -37,6 +37,15 @@ export default function SiteHeader() {
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
+                  <a href="/portfolio">Portfolio</a>
+                </MenubarItem>
+                <MenubarItem>
+                  <a href="/projects">Projects</a>
+                </MenubarItem>
+                <MenubarItem>
+                  <a href="/settings">Settings</a>
+                </MenubarItem>
+                <MenubarItem>
                   <a href="/subscribe">Pricing</a>
                 </MenubarItem>
                 <MenubarItem>
@@ -65,6 +74,15 @@ export default function SiteHeader() {
         {/* Right: Navigation */}
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6">
+            <a href="/portfolio" className="text-zinc-300 hover:text-green-400 transition-colors">
+              Portfolio
+            </a>
+            <a href="/projects" className="text-zinc-300 hover:text-green-400 transition-colors">
+              Projects
+            </a>
+            <a href="/settings" className="text-zinc-300 hover:text-green-400 transition-colors">
+              Settings
+            </a>
             <a href="./learn" className="text-zinc-300 hover:text-green-400 transition-colors">
               Discover
             </a>
