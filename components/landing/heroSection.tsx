@@ -6,10 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProjects } from '@/hooks/use-projects';
 import { Loader2, Sparkles, Github, Upload, FileText, Settings } from 'lucide-react';
 
 export default function HeroSection() {
   const { user, openAuthModal, setAuthMode } = useAuth();
+  const { createProject } = useProjects();
   const [prompt, setPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -27,12 +29,25 @@ export default function HeroSection() {
 
     setIsGenerating(true);
 
-    // Simulate generation process
-    setTimeout(() => {
+    try {
+      // Create project with AI pipeline
+      const title = `App from: ${prompt.substring(0, 30)}${prompt.length > 30 ? '...' : ''}`;
+      const description = `Generated from prompt: ${prompt}`;
+
+      const project = await createProject(title, description, prompt);
+
+      if (project) {
+        console.log('Project created:', project);
+        // TODO: Navigate to project view or show success message
+        // You could add a toast notification here or redirect to project page
+      }
+    } catch (error) {
+      console.error('Error creating project:', error);
+      // TODO: Show error message to user
+    } finally {
       setIsGenerating(false);
-      // Here you would integrate with your AI generation system
-      console.log('Generating app for:', prompt);
-    }, 2000);
+      setPrompt(''); // Clear the prompt after generation
+    }
   };
 
   const handleAdvancedFeature = (featureName: string) => {
