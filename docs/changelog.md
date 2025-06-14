@@ -4,6 +4,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] – 2025-06-14
+
+### Added
+
+- **Supabase Local Development**: Complete local Supabase setup with PostgreSQL database
+- **Database Schema**: Comprehensive schema with `portfolios`, `projects`, and `build_logs` tables
+- **Row Level Security**: RLS policies for secure data access with user authentication
+- **Project Pipeline Functions**: SQL functions for creating projects with Docker pipeline integration
+- **Environment Configuration**: Local development environment variables and JWT tokens
+- **Database Integration Testing**: Verification scripts for database connectivity and table operations
+
+### Changed
+
+- **Migration System**: Fixed migration errors related to `next_auth` schema references
+- **Environment Setup**: Updated `.env.local` with proper local Supabase configuration
+- **Project Pipeline**: Enhanced `project-pipeline.ts` with proper Docker container building logic
+
+### Fixed
+
+- **Supabase Migration Errors**: Resolved `next_auth` schema reference issues in migration files
+- **JWT Token Configuration**: Corrected JWT tokens for local development authentication
+- **Docker Volume Cleanup**: Proper cleanup of Docker volumes for fresh database resets
+- **ESLint Issues**: Fixed unused variable warnings in project pipeline module
+- **JSONB Casting**: Corrected PostgreSQL JSONB type casting in database functions
+
+### Technical Details
+
+- **Database URL**: `postgresql://postgres:postgres@127.0.0.1:54323/postgres`
+- **API Endpoint**: `http://127.0.0.1:54321`
+- **Studio UI**: `http://127.0.0.1:54324`
+- **Storage Buckets**: Configured for avatars, project previews, and assets
+
 ## [0.2.0] – 2025-06-14
 
 ### Added
@@ -35,3 +67,16 @@ All notable changes to this project will be documented in this file.
   `npx create-next-app@latest . --typescript --eslint --tailwind`
 
 _(Project at its earliest phase: nothing beyond the base app exists yet.)_
+
+---
+
+## 📋 **Development History**
+
+For a comprehensive analysis of all git commits, development phases, and code statistics, see the detailed [Git Commit Log](git-commit-log.md).
+
+**Quick Stats:**
+
+- **Total Commits**: 21 commits over 25 hours
+- **Code Growth**: ~28,000 net lines added
+- **Major Milestones**: 6 key development phases
+- **Latest Focus**: Database integration and authentication system
