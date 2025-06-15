@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import '@testing-library/jest-dom';
 
 describe('Utility Functions', () => {
   beforeEach(() => {

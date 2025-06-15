@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import { createClient } from '@/utils/supabase/client';
 
 // Mock Supabase for testing

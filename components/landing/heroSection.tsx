@@ -7,8 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProjects } from '@/hooks/use-projects';
-import { Loader2, Sparkles, Github, Upload, FileText, Settings, MessageSquare } from 'lucide-react';
-import Link from 'next/link';
+import { Loader2, Sparkles, Github, Upload, FileText, Settings } from 'lucide-react';
 
 export default function HeroSection() {
   const { user, openAuthModal, setAuthMode } = useAuth();
@@ -120,14 +119,6 @@ export default function HeroSection() {
               </Button>
             </div>
             <div className="flex items-center justify-center text-zinc-500 text-sm gap-4">
-              <Link href="/ai-chat">
-                <Button
-                  className="w-[1fr] bg-green-600/30 hover:bg-green-600 text-green-100/80 hover:text-green-100 font-medium"
-                >
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  AI Chat
-                </Button>
-              </Link>
               <Button
                 className="w-[1fr] bg-zinc-800 hover:bg-green-600/80 text-slate-200/30 hover:text-green-100/90 font-medium"
                 onClick={() => handleAdvancedFeature('Github Connection')}
