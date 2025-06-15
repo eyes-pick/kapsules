@@ -2,6 +2,7 @@
 
 import { createClient } from '@/utils/supabase/client';
 import { Project } from '@/hooks/use-projects';
+import { dockerService } from './docker-service';
 
 export interface BuildStage {
   stage: 'docker_init' | 'ai_analysis' | 'code_gen' | 'build' | 'deploy';
@@ -220,37 +221,97 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       }, 3000);
     });
   }
+
   private async buildDockerContainer(
     projectId: string,
     sourceFiles: Record<string, string>
-  ): Promise<{ containerId: string }> {
-    // TODO: Integrate with Docker API to build container
-    // This would create a Docker image with the generated Vite app
-    const fileCount = Object.keys(sourceFiles).length;
-    console.log(
-      `Building Docker container for project ${projectId} with ${fileCount} source files`
-    );
+  ): Promise<{ containerId: string; port?: number }> {
+    try {
+      console.log(
+        `Building Docker container for project ${projectId} with ${Object.keys(sourceFiles).length} source files`
+      );
 
-    // Simulated Docker build for now
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve({
-          containerId: `docker-${projectId}-${Date.now()}`,
-        });
-      }, 5000);
-    });
+      // Use the Docker service to build and run the container
+      const dockerResult = await dockerService.buildProjectContainer(projectId, sourceFiles);
+
+      console.log(
+        `Docker container built: ${dockerResult.containerId} on port ${dockerResult.port}`
+      );
+
+      return {
+        containerId: dockerResult.containerId,
+        port: dockerResult.port,
+      };
+    } catch (error) {
+      console.error(`Failed to build Docker container: ${error}`);
+      throw error;
+    }
   }
 
   private async deployToSandbox(containerId: string, projectId: string): Promise<string> {
-    // TODO: Deploy to your sandbox environment
-    // This would start the container and return a preview URL
+    try {
+      // Get container information
+      const containerInfo = await dockerService.getContainerInfo(containerId);
 
-    // Simulated deployment for now
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(`https://sandbox.kapsules.com/preview/${projectId}`);
-      }, 2000);
-    });
+      if (containerInfo && containerInfo.status === 'running') {
+        // Return the container URL if it's running
+        return containerInfo.url;
+      }
+
+      // Fallback to preview API endpoint
+      return `/api/preview/${projectId}`;
+    } catch (error) {
+      console.error(`Failed to deploy to sandbox: ${error}`);
+      // Fallback to preview API endpoint
+      return `/api/preview/${projectId}`;
+    }
+  }
+
+  // Container management methods
+  async stopProjectContainer(projectId: string): Promise<void> {
+    try {
+      // Get project to find container ID
+      const { data: project } = await this.supabase
+        .from('projects')
+        .select('docker_image_id')
+        .eq('id', projectId)
+        .single();
+
+      if (project?.docker_image_id) {
+        await dockerService.stopContainer(project.docker_image_id);
+        console.log(`Stopped container for project ${projectId}`);
+      }
+    } catch (error) {
+      console.error(`Failed to stop container for project ${projectId}:`, error);
+    }
+  }
+
+  async cleanupProject(projectId: string): Promise<void> {
+    try {
+      // Get project to find container ID
+      const { data: project } = await this.supabase
+        .from('projects')
+        .select('docker_image_id')
+        .eq('id', projectId)
+        .single();
+
+      if (project?.docker_image_id) {
+        await dockerService.stopContainer(project.docker_image_id);
+        await dockerService.removeContainer(project.docker_image_id);
+        console.log(`Cleaned up container for project ${projectId}`);
+      }
+    } catch (error) {
+      console.error(`Failed to cleanup project ${projectId}:`, error);
+    }
+  }
+
+  async cleanupAllContainers(): Promise<void> {
+    try {
+      await dockerService.cleanupContainers();
+      console.log('Cleaned up all containers');
+    } catch (error) {
+      console.error('Failed to cleanup containers:', error);
+    }
   }
 
   private extractFeatures(prompt: string): string[] {

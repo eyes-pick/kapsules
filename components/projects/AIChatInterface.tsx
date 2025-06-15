@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { useProjects } from '@/hooks/use-projects';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface Message {
   id: string;
@@ -19,6 +21,8 @@ interface AIChatInterfaceProps {
 }
 
 export function AIChatInterface({ onProjectGenerated }: AIChatInterfaceProps) {
+  const { user } = useAuth();
+  const { createProject } = useProjects();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -51,6 +55,20 @@ export function AIChatInterface({ onProjectGenerated }: AIChatInterfaceProps) {
 
     if (!input.trim() || isLoading) return;
 
+    if (!user) {
+      // Add error message for unauthenticated users
+      setMessages(prev => [
+        ...prev,
+        {
+          id: Date.now().toString(),
+          content: "Please sign in to create projects. You need to be authenticated to use this feature.",
+          role: 'assistant',
+          timestamp: new Date(),
+        },
+      ]);
+      return;
+    }
+
     const userMessage: Message = {
       id: Date.now().toString(),
       content: input.trim(),
@@ -63,34 +81,60 @@ export function AIChatInterface({ onProjectGenerated }: AIChatInterfaceProps) {
     setIsLoading(true);
 
     try {
-      // Replace with your actual API call
-      const response = await fetch('/api/ai-iterate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: userMessage.content,
-          history: messages.map(m => ({ role: m.role, content: m.content })),
-        }),
-      });
+      // Check if the user is asking to create a new project
+      const isProjectCreationRequest =
+        input.toLowerCase().includes('create') ||
+        input.toLowerCase().includes('build') ||
+        input.toLowerCase().includes('make') ||
+        input.toLowerCase().includes('generate') ||
+        input.toLowerCase().includes('new project');
 
-      if (!response.ok) throw new Error('Failed to get response');
+      if (isProjectCreationRequest) {
+        // Create a new project
+        const title = `Project: ${input.substring(0, 50)}${input.length > 50 ? '...' : ''}`;
+        const description = `AI-generated project from prompt: ${input}`;
 
-      const data = await response.json();
+        // Add AI response indicating project creation
+        setMessages(prev => [
+          ...prev,
+          {
+            id: Date.now().toString(),
+            content: "I'll create a new project for you based on your requirements. This may take a few minutes to build and deploy...",
+            role: 'assistant',
+            timestamp: new Date(),
+          },
+        ]);
 
-      // Add the AI response to messages
-      setMessages(prev => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          content: data.message,
-          role: 'assistant',
-          timestamp: new Date(),
-        },
-      ]);
+        const project = await createProject(title, description, input);
 
-      // If a project was generated, notify the parent
-      if (data.projectId) {
-        onProjectGenerated(data.projectId);
+        if (project) {
+          // Notify parent component about the new project
+          onProjectGenerated(project.id);
+
+          // Add success message
+          setMessages(prev => [
+            ...prev,
+            {
+              id: Date.now().toString(),
+              content: `Great! I've created your project "${project.title}". It's now building and will be available shortly. You can see the progress in the project panel.`,
+              role: 'assistant',
+              timestamp: new Date(),
+            },
+          ]);
+        } else {
+          throw new Error('Failed to create project');
+        }
+      } else {
+        // Handle general conversation (future enhancement)
+        setMessages(prev => [
+          ...prev,
+          {
+            id: Date.now().toString(),
+            content: "I'd be happy to help! To create a new project, please describe what you'd like to build. For example: 'Create a todo app' or 'Build a portfolio website'.",
+            role: 'assistant',
+            timestamp: new Date(),
+          },
+        ]);
       }
     } catch (error) {
       console.error('Error in AI chat:', error);
@@ -100,7 +144,7 @@ export function AIChatInterface({ onProjectGenerated }: AIChatInterfaceProps) {
         ...prev,
         {
           id: Date.now().toString(),
-          content: "I'm sorry, I encountered an error. Please try again.",
+          content: "I'm sorry, I encountered an error while creating your project. Please try again.",
           role: 'assistant',
           timestamp: new Date(),
         },

@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # Main Kapsules Application
+  kapsules-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    env_file:
+      - .env.local
+    volumes:
+      - ./generated:/app/generated
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - kapsules-network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -f http://localhost:3000/api/health || exit 1']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Template Base Image (for building generated projects)
+  template-base:
+    build:
+      context: ./templates/default
+      dockerfile: Dockerfile
+    image: kapsules/vite-template:latest
+    profiles:
+      - build-only
+
+  # Example generated project container
+  # This would be dynamically created by the pipeline
+  generated-project-example:
+    build:
+      context: ./generated/example-project
+      dockerfile: Dockerfile
+    ports:
+      - '8080:80'
+    networks:
+      - kapsules-network
+    restart: unless-stopped
+    profiles:
+      - example
+    depends_on:
+      - kapsules-app
+
+  # Docker-in-Docker service for building user projects
+  docker-in-docker:
+    image: docker:dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    volumes:
+      - docker-certs-ca:/certs/ca
+      - docker-certs-client:/certs/client
+      - ./generated:/workspace
+    networks:
+      - kapsules-network
+    restart: unless-stopped
+
+  # Redis for caching and job queues (optional)
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    networks:
+      - kapsules-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+
+networks:
+  kapsules-network:
+    driver: bridge
+
+volumes:
+  docker-certs-ca:
+  docker-certs-client:
+  redis-data:

@@ -1,0 +1,63 @@
+# Development Docker Compose
+version: '3.8'
+
+services:
+  # Main Kapsules Application (Development)
+  kapsules-app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env.local
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+      - ./generated:/app/generated
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - kapsules-dev-network
+    command: npm run dev
+
+  # Supabase Local Development
+  supabase:
+    image: supabase/supabase:latest
+    ports:
+      - '54321:54321' # Supabase Studio
+      - '54322:54322' # PostgREST
+      - '54323:54323' # Auth
+      - '54324:54324' # Storage
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - supabase-data:/var/lib/postgresql/data
+    networks:
+      - kapsules-dev-network
+
+  # Docker-in-Docker for development
+  docker-dev:
+    image: docker:dind
+    privileged: true
+    ports:
+      - '2376:2376'
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    volumes:
+      - docker-dev-certs-ca:/certs/ca
+      - docker-dev-certs-client:/certs/client
+      - ./generated:/workspace
+    networks:
+      - kapsules-dev-network
+
+networks:
+  kapsules-dev-network:
+    driver: bridge
+
+volumes:
+  supabase-data:
+  docker-dev-certs-ca:
+  docker-dev-certs-client:

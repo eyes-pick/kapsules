@@ -1,0 +1,26 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Build output
+dist
+build
+
+# Environment files
+.env*
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+__tests__
+
+# Misc
+*.md
+!README.md
