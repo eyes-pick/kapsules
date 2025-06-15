@@ -35,9 +35,9 @@ export default function LandingLayout({
 }) {
   return (
     <AuthProvider>
-      <div className="min-h-screen w-full bg-zinc-950 text-white overflow-y-scroll overflow-x-hidden">
+      <div className="min-h-screen w-full bg-zinc-950 text-white overflow-y-scroll overflow-x-hidden flex flex-col">
         {siteHeader}
-        <main className="flex-1">
+        <main className="flex-1 min-h-screen">
           {heroSection}
           {projectSection}
           {/* footerSection */}

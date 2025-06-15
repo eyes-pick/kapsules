@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -12,6 +14,7 @@ import { Loader2, Sparkles, Github, Upload, FileText, Settings } from 'lucide-re
 export default function HeroSection() {
   const { user, openAuthModal, setAuthMode } = useAuth();
   const { createProject } = useProjects();
+  const router = useRouter();
   const [prompt, setPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -28,7 +31,6 @@ export default function HeroSection() {
     }
 
     setIsGenerating(true);
-
     try {
       // Create project with AI pipeline
       const title = `App from: ${prompt.substring(0, 30)}${prompt.length > 30 ? '...' : ''}`;
@@ -38,12 +40,22 @@ export default function HeroSection() {
 
       if (project) {
         console.log('Project created:', project);
-        // TODO: Navigate to project view or show success message
-        // You could add a toast notification here or redirect to project page
+
+        // Show success toast
+        toast.success('Project created successfully!', {
+          description: 'Redirecting you to the projects page...',
+        });
+
+        // Navigate to the projects page after successful creation
+        router.push('/projects');
       }
     } catch (error) {
       console.error('Error creating project:', error);
-      // TODO: Show error message to user
+
+      // Show error toast
+      toast.error('Failed to create project', {
+        description: 'Please try again or contact support if the issue persists.',
+      });
     } finally {
       setIsGenerating(false);
       setPrompt(''); // Clear the prompt after generation

@@ -1,5 +1,5 @@
 # Cloudflare Workers configuration
-name = "<projectName>-worker"
+name = "kapsules-worker"
 compatibility_date = "2025-06-15"
 
 # Default (development) environment
@@ -10,10 +10,10 @@ account_id = "<CLOUDFLARE_ACCOUNT_ID>"
 
 # Development environment config
 [env.dev]
-name = "<projectName>-dev"
-route = "<projectName>.genr8.dev/*"
+name = "kapsules-dev"
+route = "${projectName}.genr8.dev/*"
 
 # Production environment config
 [env.production]
-name = "<projectName>"
+name = "kapsules by genr8"
 route = "genr8.dev/*"

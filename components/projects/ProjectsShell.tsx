@@ -4,10 +4,12 @@ import { ProjectsContent } from './ProjectsContent';
 
 export default function ProjectsShell({ children }: { children?: ReactNode }) {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <SiteHeader />
-      <ProjectsContent />
-      {children}
-    </>
+      <main className="flex-1 min-h-screen">
+        <ProjectsContent />
+        {children}
+      </main>
+    </div>
   );
 }

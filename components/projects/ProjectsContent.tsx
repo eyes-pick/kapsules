@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { ResizablePanel, ResizablePanelGroup, ResizableHandle } from '@/components/ui/resizable';
@@ -60,18 +60,18 @@ export function ProjectsContent() {
   };
 
   return (
-    <ResizablePanelGroup direction="horizontal" className="h-full">
-      <ResizablePanel defaultSize={30} minSize={20} className="flex flex-col">
+    <ResizablePanelGroup direction="horizontal" className="min-h-screen">
+      <ResizablePanel defaultSize={30} minSize={20} className="flex flex-col min-h-screen">
         <AIChatInterface onProjectGenerated={handleProjectGenerated} />
       </ResizablePanel>
       <ResizableHandle />
-      <ResizablePanel defaultSize={70} minSize={50} className="flex flex-col">
-        <ResizablePanelGroup direction="vertical" className="flex-1">
+      <ResizablePanel defaultSize={70} minSize={50} className="flex flex-col min-h-screen">
+        <ResizablePanelGroup direction="vertical" className="flex-1 min-h-screen">
           <ResizablePanel defaultSize={30} minSize={20} className="flex flex-col">
             <div className="flex-1 overflow-auto">
               <h2 className="text-lg font-semibold p-4">Projects</h2>
               <ul>
-                {projects.map((project) => (
+                {projects.map(project => (
                   <li
                     key={project.id}
                     className={`p-4 cursor-pointer ${selectedProject?.id === project.id ? 'bg-zinc-800' : ''}`}
@@ -84,17 +84,17 @@ export function ProjectsContent() {
             </div>
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={70} minSize={50} className="flex flex-col">
+          <ResizablePanel defaultSize={70} minSize={50} className="flex flex-col min-h-screen">
             {selectedProject ? (
               <iframe
-                src={`https://${selectedProject.name}.genr8.dev/projects/${selectedProject.id}`}
+                src="http://localhost:8080"
                 sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
                 allow="clipboard-write; camera; microphone; geolocation; midi; vr; xr-spatial-tracking"
-                className="flex-1 w-full h-full border-none"
-                title={selectedProject.name}
+                className="flex-1 w-full min-h-screen border-none"
+                title="Sandbox Environment"
               />
             ) : (
-              <div className="flex items-center justify-center h-full text-zinc-400">
+              <div className="flex items-center justify-center min-h-screen text-zinc-400">
                 Select a project to view its dev environment or ask the AI to create a new one.
               </div>
             )}
